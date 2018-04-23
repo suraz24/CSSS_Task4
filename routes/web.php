@@ -18,4 +18,5 @@ Route::get('/', function () {
 Route::resource('restaurants', 'RestaurantController');
 Route::resource('categories', 'CategoryController');
 Route::resource('countries', 'CountryController');
+Route::resource('posts', 'PostController');
 Route::resource('users', 'UserController');

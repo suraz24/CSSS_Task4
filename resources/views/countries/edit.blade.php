@@ -12,7 +12,7 @@
          </div>
          <ul class="nav navbar-nav">
              <li><a href="{{ URL::to('countries') }}">View All Countries</a></li>
-             <li><a href="{{ URL::to('countries/create') }}">Create a Country</a>
+             <li><a href="{{ URL::to('countries/edit') }}">Create a Country</a>
          </ul>
       </nav>
       <h1>Edit {{ $country->id }}</h1>
