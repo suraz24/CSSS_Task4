@@ -19,10 +19,6 @@
     <!-- if there are creation errors, they will show here -->
     {{ HTML::ul($errors->all()) }}
     {{ Form::model($user, array('route' => array('users.update', $user->id),'method' => 'PUT')) }}
-    <div class="form-group">
-        {{ Form::label('id', 'User ID') }}
-        {{ Form::text('id', Input::old('id'), array('class' => 'form-control')) }}
-    </div>
      <div class="form-group">
          {{ Form::label('name', 'User Name') }}
          {{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -12,7 +12,7 @@ use Input;
 use Session;
 use Redirect;
 
-class UserController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-      $users = User::all();
-      return View::make('users.index')->with('users', $users);
+        $comments  = Comment::all();
+        return View::make('comments.index')->with('comments', $comments);
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return View::make('users.create');
+        return View::make('comments.create');
     }
 
     /**
@@ -44,29 +44,26 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-          'name'        =>   'required',
-          'email'       =>   'required',
-          'password'    =>   'required',
-          'country_id'  =>    'required',
+          'content' => 'required',
+          'post_id' => 'required',
+          'user_id' => 'required',
         );
-
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
-          return Redirect::to('users/create')
+          return Redirect::to('comments/create')
           ->withErrors($validator)
           ->withInput(Input::except('password'));
         } else {
-          $user = new User;
-          $user->name = Input::get('name');
-          $user->email = Input::get('email');
-          $user->password = Input::get('password');
-          $user->created_at = Carbon::now();
-          $user->updated_at = Carbon::now();
-          $user->country_id = Input::get('country_id');
-          $user->save();
+          $comment = new Comment;
+          $comment->content = Input::get('content');
+          $comment->created_at = Carbon::now();
+          $comment->updated_at = Carbon::now();
+          $comment->post_id = Input::get('post_id');
+          $comment->user_id = Input::get('user_id');
+          $comment->save();
           // redirect
-          Session::flash('message', 'Successfully created user!');
-          return Redirect::to('users');
+          Session::flash('message', 'Successfully created comment!');
+          return Redirect::to('comments');
         }
     }
 
@@ -78,8 +75,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-      $user = User::find($id);
-      return View::make('users.show')-> with('user', $user);
+        $comment = Comment::find($id);
+        return View::make('comments.show')
+                      ->with('comment', $comment);
     }
 
     /**
@@ -90,8 +88,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return View::make('users.edit')->with('user',$user);
+        $comment = Comment::find($id);
+        return View::make('comments.edit')
+                    ->with('comment', $comment);
     }
 
     /**
@@ -104,28 +103,26 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
       $rules = array(
-        'name'        =>   'required',
-        'email'       =>   'required',
-        'password'    =>   'required',
-        'country_id'  =>    'required',
+        'content' => 'required',
+        'post_id' => 'required',
+        'user_id' => 'required',
       );
 
       $validator = Validator::make(Input::all(), $rules);
       if ($validator->fails()) {
-        return Redirect::to('users/create')
+        return Redirect::to('comments/'. $id . '/edit')
         ->withErrors($validator)
         ->withInput(Input::except('password'));
       } else {
-        $user = User::find($id);
-        $user->name = Input::get('name');
-        $user->email = Input::get('email');
-        $user->password = Input::get('password');
-        $user->updated_at = Carbon::now();
-        $user->country_id = Input::get('country_id');
-        $user->save();
+        $comment = Comment::find($id);
+        $comment->content = Input::get('content');
+        $comment->updated_at = Carbon::now();
+        $comment->post_id = Input::get('post_id');
+        $comment->user_id = Input::get('user_id');
+        $comment->save();
         // redirect
-        Session::flash('message', 'Successfully created user!');
-        return Redirect::to('users');
+        Session::flash('message', 'Successfully updated comment!');
+        return Redirect::to('comments');
       }
     }
 
@@ -137,9 +134,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        Session::flash('message', 'Successfully deleted the user!!!');
-        return Redirect::to('users');
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        Session::flash('message', 'Successfully deleted the comment');
+        return Redirect::to('comments');
     }
 }

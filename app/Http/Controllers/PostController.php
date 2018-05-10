@@ -44,7 +44,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
       $rules = array(
-        'id' => 'required',
         'content' => 'required',
         'restaurant_id' => 'required',
         'user_id' => 'required',
@@ -56,7 +55,6 @@ class PostController extends Controller
         ->withInput(Input::except('password'));
       } else {
         $post = new Post;
-        $post->id = Input::get('id');
         $post->content = Input::get('content');
         $post->created_at = Carbon::now();
         $post->updated_at = Carbon::now();
@@ -105,7 +103,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $rules = array(
-          'id' => 'required',
           'content' => 'required',
           'restaurant_id' => 'required',
           'user_id' => 'required',
@@ -118,7 +115,6 @@ class PostController extends Controller
           ->withInput(Input::except('password'));
         } else {
           $post = Post::find($id);
-          $post->id = Input::get('id');
           $post->content = Input::get('content');
           $post->updated_at = Carbon::now();
           $post->restaurant_id = Input::get('restaurant_id');
@@ -142,6 +138,6 @@ class PostController extends Controller
         $post->delete();
 
         Session::flash('message', 'Successfully deleted the post');
-        Redirect::to('posts');
+        return Redirect::to('posts');
     }
 }

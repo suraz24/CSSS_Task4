@@ -120,7 +120,6 @@ class RestaurantController extends Controller
     public function update(Request $request, $id)
     {
       $rules = array(
-        'id' => 'required',
         'name' => 'required',
         'phone' => 'required',
         'address1' => 'required',
@@ -132,13 +131,12 @@ class RestaurantController extends Controller
         );
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
-          return Redirect::to('restaurant/' . $id . '/edit')
+          return Redirect::to('restaurants/' . $id . '/edit')
           ->withErrors($validator)
           ->withInput(Input::except('password'));
         } else {
           // Store the data to the database
           $restaurant = Restaurant::find($id);
-          $restaurant->id = Input::get('id');
           $restaurant->name = Input::get('name');
           $restaurant->phone = Input::get('phone');
           $restaurant->address1 = Input::get('address1');

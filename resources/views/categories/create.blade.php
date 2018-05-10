@@ -19,10 +19,6 @@
     <!-- if there are creation errors, they will show here -->
     {{ HTML::ul($errors->all()) }}
     {{ Form::open(array('url' => 'categories')) }}
-    <div class="form-group">
-        {{ Form::label('id', 'Category ID') }}
-        {{ Form::text('id', Input::old('id'), array('class' => 'form-control')) }}
-    </div>
      <div class="form-group">
          {{ Form::label('name', 'Category Name') }}
          {{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}

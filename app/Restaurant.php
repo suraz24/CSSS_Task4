@@ -9,6 +9,7 @@ class Restaurant extends Model
     protected $table = 'restaurants';   //define the table
     protected $primaryKey = "id";
     public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = ['name', 'phone', 'address1', 'address2', 'suburb', 'state','numberofseats', 'country_id','category_id'];
 
     public function country() {
@@ -20,6 +21,6 @@ class Restaurant extends Model
     }
 
     public function posts() {
-        return $this->hasMany('App/Post', 'restaurant_id', 'id');
+        return $this->hasMany('App\Post', 'restaurant_id', 'id');
     }
 }

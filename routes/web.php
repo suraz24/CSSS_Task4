@@ -20,3 +20,4 @@ Route::resource('categories', 'CategoryController');
 Route::resource('countries', 'CountryController');
 Route::resource('posts', 'PostController');
 Route::resource('users', 'UserController');
+Route::resource('comments', 'CommentController');

@@ -45,7 +45,6 @@ class CountryController extends Controller
     public function store(Request $request)
     {
       $rules = array(
-        'id' => 'required',
         'name' => 'required',
       );
       $validator = Validator::make(Input::all(), $rules);
@@ -55,7 +54,6 @@ class CountryController extends Controller
         ->withInput(Input::except('password'));
       } else {
         $country = new Country;
-        $country->id = Input::get('id');
         $country->name = Input::get('name');
         $country->created_at = Carbon::now();
         $country->updated_at = Carbon::now();
@@ -102,7 +100,6 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
       $rules = array(
-        'id' => 'required',
         'name' => 'required',
       );
       $validator = Validator::make(Input::all(), $rules);
@@ -112,7 +109,6 @@ class CountryController extends Controller
         ->withInput(Input::except('password'));
       } else {
         $country = Country::find($id);
-        $country->id = Input::get('id');
         $country->name = Input::get('name');
         $country->updated_at = Carbon::now();
         $country->save();

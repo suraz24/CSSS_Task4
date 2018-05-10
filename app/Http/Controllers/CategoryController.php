@@ -45,7 +45,6 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
       $rules = array(
-        'id' => 'required',
         'name' => 'required',
       );
       $validator = Validator::make(Input::all(), $rules);
@@ -55,7 +54,6 @@ class CategoryController extends Controller
         ->withInput(Input::except('password'));
       } else {
         $category = new Category;
-        $category->id = Input::get('id');
         $category->name = Input::get('name');
         $category->created_at = Carbon::now();
         $category->updated_at = Carbon::now();
@@ -103,7 +101,6 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
       $rules = array(
-        'id' => 'required',
         'name' => 'required',
       );
       $validator = Validator::make(Input::all(), $rules);
@@ -113,7 +110,6 @@ class CategoryController extends Controller
         ->withInput(Input::except('password'));
       } else {
         $category =  Category::find($id);
-        $category->id = Input::get('id');
         $category->name = Input::get('name');
         $category->updated_at = Carbon::now();
         $category->save();

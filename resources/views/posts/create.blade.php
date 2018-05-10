@@ -19,10 +19,6 @@
     <!-- if there are creation errors, they will show here -->
     {{ HTML::ul($errors->all()) }}
     {{ Form::open(array('url' => 'posts')) }}
-    <div class="form-group">
-        {{ Form::label('id', 'Post ID') }}
-        {{ Form::text('id', Input::old('id'), array('class' => 'form-control')) }}
-    </div>
      <div class="form-group">
          {{ Form::label('content', 'Content') }}
          {{ Form::text('content', Input::old('content'), array('class' => 'form-control')) }}
